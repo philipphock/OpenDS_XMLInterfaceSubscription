@@ -6,6 +6,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlTcpClient;
+
 /**
  * XML subscription Enum.
  * Intended to be used wit XmlTcpClient @see {@link XmlTcpClient}

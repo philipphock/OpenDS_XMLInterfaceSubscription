@@ -1,4 +1,4 @@
-package de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol;
+package de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,7 +13,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 
-import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.XmlMessageProtocol.XmlMessageProtocolCallback;
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlMessageProtocol.XmlMessageProtocolCallback;
 
 /**
  * Debug class that prints out recv xml files

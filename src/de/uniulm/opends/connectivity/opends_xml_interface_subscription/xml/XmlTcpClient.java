@@ -1,13 +1,20 @@
-package de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol;
+package de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml;
 
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.net.impl.Utf8StringTcpClient;
-import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.XmlMessageProtocol.XmlMessageProtocolCallback;
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.Abbonement;
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlMessageProtocol.XmlMessageProtocolCallback;
 
-
+/**
+ * XML Client receives XML Data and sends XML Messages
+ * @author Fahrsimulator (Phil)
+ *
+ */
 public class XmlTcpClient extends Utf8StringTcpClient{
 
 	private final XmlMessageProtocol xmlMsgProtocol;
-	public XmlTcpClient(String adress, int port,XmlMessageProtocolCallback callback) {
+
+	public XmlTcpClient(String adress, int port,
+			XmlMessageProtocolCallback callback) {
 		super(adress, port);
 		xmlMsgProtocol = new XmlMessageProtocol(callback);
 		startListening();

@@ -1,7 +1,7 @@
 package de.uniulm.opends.connectivity.opends_xml_interface_subscription;
 
-import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.XmlMessageProtocolDebugCallback;
-import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.XmlTcpClient;
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlMessageProtocolDebugCallback;
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlTcpClient;
 
 public class Main {
 
