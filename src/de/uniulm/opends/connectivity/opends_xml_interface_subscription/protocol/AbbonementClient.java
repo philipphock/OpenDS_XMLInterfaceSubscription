@@ -28,12 +28,19 @@ public class AbbonementClient extends XmlTcpClient implements XmlMessageProtocol
 
 	@Override
 	public void onXmlMessage(Document document) {
-		//TODO scan document, determine which Abbonement 
-		Abbonement a = null;//  =TODO
-		for(AbbonementListener l:listener){
-			l.eventReceived(a);
+		
+		ArrayList<Abbonement> as = getAbbonnementsFromXML(document);
+		for(Abbonement a:as){
+			for(AbbonementListener l:listener){
+				l.eventReceived(a);
+			}	
 		}
 		
+	}
+	
+	private ArrayList<Abbonement> getAbbonnementsFromXML(Document d){
+		//TODO implement
+		return null;
 	}
 
 }
