@@ -3,7 +3,11 @@ package de.uniulm.opends.connectivity.opends_xml_interface_subscription.net.impl
 import java.nio.charset.Charset;
 
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.net.TCPClient;
-
+/**
+ * Debug TCP Client that prints out inputs and status
+ * @author Fahrsimulator (Phil)
+ *
+ */
 public class DebugTcpClient extends TCPClient{
 
 	public DebugTcpClient(String adress, int port) {

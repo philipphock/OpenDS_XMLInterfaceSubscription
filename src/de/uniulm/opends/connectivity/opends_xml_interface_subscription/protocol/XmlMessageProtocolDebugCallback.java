@@ -15,6 +15,11 @@ import org.w3c.dom.Document;
 
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.XmlMessageProtocol.XmlMessageProtocolCallback;
 
+/**
+ * Debug class that prints out recv xml files
+ * @author Fahrsimulator (Phil)
+ *
+ */
 public class XmlMessageProtocolDebugCallback implements XmlMessageProtocolCallback{
 
 	@Override
@@ -29,7 +34,13 @@ public class XmlMessageProtocolDebugCallback implements XmlMessageProtocolCallba
 	}
 
 	//from stackoverflow: http://stackoverflow.com/questions/2325388/java-shortest-way-to-pretty-print-to-stdout-a-org-w3c-dom-document
-	
+	/**pretty print an XML Document
+	 * 
+	 * @param doc
+	 * @param out
+	 * @throws IOException
+	 * @throws TransformerException
+	 */
 	public static void printDocument(Document doc, OutputStream out) throws IOException, TransformerException {
 	    TransformerFactory tf = TransformerFactory.newInstance();
 	    Transformer transformer = tf.newTransformer();

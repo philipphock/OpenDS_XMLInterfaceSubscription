@@ -6,6 +6,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * XML subscription Enum.
+ * Intended to be used wit XmlTcpClient @see {@link XmlTcpClient}
+ * @author Fahrsimulator (Phil)
+ *
+ */
 public enum Abbonement {
 	
 	//define enums and load data
@@ -19,12 +25,20 @@ public enum Abbonement {
 		this.xml=xml;
 	}
 	
+	/**
+	 * 
+	 * @return xml as UTF-8 String
+	 */
 	public String getXML() {
 		return xml;
 
 	}
 	
-	
+	/**
+	 * 
+	 * @param filename
+	 * @return Xml File as String
+	 */
 	public static String loadXMLtoString(String filename){
 		String fileDir = System.getProperty("user.dir") + File.separator+"xml"+File.separator;
 		 try {

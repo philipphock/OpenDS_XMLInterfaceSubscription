@@ -11,6 +11,11 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+/**
+ * Protocol for xml abbonements
+ * @author Fahrsimulator (Phil)
+ *
+ */
 public class XmlMessageProtocol {
 
 	private final StringBuilder sb = new StringBuilder();
@@ -22,6 +27,10 @@ public class XmlMessageProtocol {
 	private  DocumentBuilder builder;
 	
 	
+	/**
+	 * 
+	 * @param callback called when a message is received
+	 */
 	public XmlMessageProtocol(XmlMessageProtocolCallback callback) {
 		factory = DocumentBuilderFactory.newInstance();
 		try {
@@ -33,6 +42,10 @@ public class XmlMessageProtocol {
 		
 	}
 	
+	/**
+	 * 
+	 * @param s  Input String from remote server 
+	 */
 	public synchronized void pipeIn(String s){
 		sb.append(s);
 		if (sb.length()==0) return;
@@ -52,6 +65,11 @@ public class XmlMessageProtocol {
 		
 	}
 	
+	/**
+	 * Callback interface
+	 * @author Fahrsimulator (Phil)
+	 *
+	 */
 	public interface XmlMessageProtocolCallback{
 		public void onXmlMessage(Document document);
 	}

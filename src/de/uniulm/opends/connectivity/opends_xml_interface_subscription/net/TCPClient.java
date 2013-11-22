@@ -3,9 +3,14 @@ package de.uniulm.opends.connectivity.opends_xml_interface_subscription.net;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Observable;
 
-public abstract class TCPClient extends Observable implements Runnable{
+/**
+ * TCP client with own receiver thread
+ * 
+ * @author Fahrsimulator (Phil)
+ *
+ */
+public abstract class TCPClient implements Runnable{
 
 	private final int PORT;
 	private final String ADRESS;
@@ -15,6 +20,11 @@ public abstract class TCPClient extends Observable implements Runnable{
 	
 	private boolean isRunning = true;
 	
+	/**
+	 * inits the client and creates a thread
+	 * @param adress
+	 * @param port
+	 */
 	public TCPClient(String adress,int port) {
 		this.PORT = port;
 		this.ADRESS=adress;
@@ -24,6 +34,9 @@ public abstract class TCPClient extends Observable implements Runnable{
 		
 	}
 	
+	/**
+	 * creates the socket and starts listening to the remote server (async) 
+	 */
 	public void startListening(){
 		try {
 			s = new Socket(ADRESS,PORT);
@@ -52,8 +65,17 @@ public abstract class TCPClient extends Observable implements Runnable{
 		}
 	}
 	
+	/**
+	 * 
+	 * @param bytes buffer
+	 * @param read count of input bytes read
+	 */
 	protected abstract void recv(byte[] bytes,int read);
 	
+	/**
+	 * send bytes to remote, on error 
+	 * @param toSend
+	 */
 	protected void send(byte[] toSend){
 		try {
 			s.getOutputStream().write(toSend);
@@ -63,6 +85,9 @@ public abstract class TCPClient extends Observable implements Runnable{
 		}
 	}
 	
+	/**
+	 * stops the client and closes the connection
+	 */
 	public void stop(){
 		isRunning=false;
 		try {
@@ -71,6 +96,15 @@ public abstract class TCPClient extends Observable implements Runnable{
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * callback, called when the remote part closes the connection
+	 */
 	protected abstract void onConnectionClosed();
+	
+	/**
+	 * callback, called when an error occurs
+	 * @param e Exception
+	 */
 	protected abstract void onError(Exception e);
 }
