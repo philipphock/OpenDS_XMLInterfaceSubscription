@@ -17,7 +17,8 @@ import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlTc
 public enum Abbonement {
 	
 	//define enums and load data
-	SPEED(Abbonement.loadXMLtoString("speed.xml"));
+	SPEED(Abbonement.loadXMLtoString("speed.xml")),
+	RPM(Abbonement.loadXMLtoString("rmp.xml"));
 	
 	
 		

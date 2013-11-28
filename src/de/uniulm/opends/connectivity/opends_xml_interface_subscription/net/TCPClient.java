@@ -3,6 +3,9 @@ package de.uniulm.opends.connectivity.opends_xml_interface_subscription.net;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.Abbonement;
 
 /**
  * TCP client with own receiver thread
@@ -20,6 +23,10 @@ public abstract class TCPClient implements Runnable{
 	
 	private boolean isRunning = true;
 	
+	private final ArrayList<TCPClientListener> tcpClientListeners = new ArrayList<>();
+	
+
+	
 	/**
 	 * inits the client and creates a thread
 	 * @param adress
@@ -33,6 +40,16 @@ public abstract class TCPClient implements Runnable{
 		
 		
 	}
+	
+	public void addTCPClientListener(TCPClientListener listener){
+		this.tcpClientListeners.add(listener);
+	}
+	public void removeTCPClientListener(TCPClientListener listener){
+		this.tcpClientListeners.remove(listener);
+	}
+
+	
+	
 	
 	/**
 	 * creates the socket and starts listening to the remote server (async) 
@@ -51,10 +68,16 @@ public abstract class TCPClient implements Runnable{
 		
 		byte[] buffer = new byte[1024];
 		while(isRunning){
+			for(TCPClientListener c:tcpClientListeners){
+				c.onConnectionEstablished();
+			}
 			try {
 				int read=s.getInputStream().read(buffer);
 				if (read==-1){
 					onConnectionClosed();
+					for(TCPClientListener c:tcpClientListeners){
+						c.onConnectionClosed();
+					}
 					break;
 				}
 				recv(buffer, read);
@@ -107,4 +130,9 @@ public abstract class TCPClient implements Runnable{
 	 * @param e Exception
 	 */
 	protected abstract void onError(Exception e);
+	
+	public interface TCPClientListener{
+		public void onConnectionEstablished();
+		public void onConnectionClosed();
+	}
 }

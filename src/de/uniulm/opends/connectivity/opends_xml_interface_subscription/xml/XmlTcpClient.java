@@ -13,6 +13,7 @@ public class XmlTcpClient extends Utf8StringTcpClient{
 
 	private final XmlMessageProtocol xmlMsgProtocol;
 
+
 	public XmlTcpClient(String adress, int port,
 			XmlMessageProtocolCallback callback) {
 		super(adress, port);

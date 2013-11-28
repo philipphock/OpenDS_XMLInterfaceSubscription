@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Message>
+	<Event Name="Subscribe">
+		/root/thisVehicle/exterior/engineCompartment/engine/Properties/actualRpm
+	</Event>
+</Message>
