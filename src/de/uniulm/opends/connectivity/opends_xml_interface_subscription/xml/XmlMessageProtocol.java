@@ -58,9 +58,7 @@ public class XmlMessageProtocol {
 			String message0=sb.substring(0, delimiterIndex+DELIMITER.length());
 			String messageN=sb.substring(delimiterIndex+DELIMITER.length());
 			sb.setLength(0);
-			System.out.println("---------------");
-			System.out.println(message0);
-			//callback.onXmlMessage(toXml(message0));XXX
+			callback.onXmlMessage(toXml(message0));
 			pipeIn(messageN);
 
 		}

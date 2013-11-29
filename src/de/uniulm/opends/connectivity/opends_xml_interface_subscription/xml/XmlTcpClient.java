@@ -6,52 +6,45 @@ import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlMe
 
 /**
  * XML Client receives XML Data and sends XML Messages
+ * 
  * @author Fahrsimulator (Phil)
- *
+ * 
  */
-public class XmlTcpClient extends Utf8StringTcpClient{
+public class XmlTcpClient extends Utf8StringTcpClient {
 
-	private final XmlMessageProtocol xmlMsgProtocol;
+	private  XmlMessageProtocol xmlMsgProtocol;
 
-
-	public XmlTcpClient(String adress, int port,
-			XmlMessageProtocolCallback callback) {
+	public XmlTcpClient(String adress, int port) {
 		super(adress, port);
-		xmlMsgProtocol = new XmlMessageProtocol(callback);
+		
 	}
-
-
-	@Override
-	protected void onConnectionClosed() {
-	
-		System.out.println("connection lost");
-	}
-
-	
 
 	@Override
 	protected void recv(String s) {
 		xmlMsgProtocol.pipeIn(s);
 	}
 
-	public void sendMessage(Abbonement xmlData){
+	public void sendMessage(Abbonement xmlData) {
 		sendUTF8String(xmlData.getXML());
 	}
 
-
 	@Override
 	protected void onConnectionEstablished() {
-		
+		// implemented in callback
 	}
-
 
 	@Override
 	protected void onError(Exception e) {
-		
+		// implemented in callback
 	}
 
+	@Override
+	protected void onConnectionClosed() {
+		// implemented in callback
+	}
 	
-	
-	
-	
+	public void setCallback(XmlMessageProtocolCallback callback){
+		xmlMsgProtocol = new XmlMessageProtocol(callback);
+	}
+
 }

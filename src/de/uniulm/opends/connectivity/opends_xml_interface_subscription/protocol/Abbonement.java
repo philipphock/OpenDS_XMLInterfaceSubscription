@@ -17,15 +17,17 @@ import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlTc
 public enum Abbonement {
 	
 	//define enums and load data
-	SPEED(Abbonement.loadXMLtoString("speed.xml")),
-	RPM(Abbonement.loadXMLtoString("rpm.xml"));
-	
+	SPEED(Abbonement.loadXMLtoString("speed.xml"),"//root/thisVehicle/physicalAttributes/Properties/speed"),
+	RPM(Abbonement.loadXMLtoString("rpm.xml"),"//root/thisVehicle/exterior/engineCompartment/engine/Properties/actualRpm"),
+	ESTABLISH_CONNECTION(Abbonement.loadXMLtoString("establishConnection.xml"),null),
+	ABOLISH_CONNECTION(Abbonement.loadXMLtoString("abolishConnection.xml"),null);
 	
 		
 	private final String xml;
-	
-	private Abbonement(String xml) {
+	private final String xpath;
+	private Abbonement(String xml,String xPath) {
 		this.xml=xml;
+		this.xpath=xPath;
 	}
 	
 	/**
@@ -35,6 +37,14 @@ public enum Abbonement {
 	public String getXML() {
 		return xml;
 
+	}
+	
+	/**
+	 * 
+	 * @return xpath to the value, delivered by remote endpoint
+	 */
+	public String getXPath(){
+		return xpath;
 	}
 	
 	/**
