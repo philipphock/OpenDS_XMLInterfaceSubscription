@@ -1,29 +1,59 @@
 package de.uniulm.opends.connectivity.opends_xml_interface_subscription;
 
-import de.uniulm.opends.connectivity.opends_xml_interface_subscription.net.TCPClient;
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.net.TCPClient.TCPClientListener;
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.Abbonement;
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlMessageProtocolDebugCallback;
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlTcpClient;
 
-public class Main {
+public class Main implements TCPClientListener{
 
+	private volatile boolean isConnected=false;
+	private XmlTcpClient client; 
 	public static void main(String[] args) {
-		final XmlTcpClient client = new XmlTcpClient("127.0.0.1", 8080, new XmlMessageProtocolDebugCallback());
-		client.addTCPClientListener(new TCPClient.TCPClientListener() {
+		Main m = new Main();
+		m.tryListen();	
+		
+	}
+	
+	
+	public void tryListen(){
+		client = new XmlTcpClient("127.0.0.1", 5578, new XmlMessageProtocolDebugCallback());
+		client.addTCPClientListener(this);
+		while (!isConnected){
 			
-			@Override
-			public void onConnectionEstablished() {
-				client.sendMessage(Abbonement.SPEED);
-				
+			client.startListening();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-			
-			@Override
-			public void onConnectionClosed() {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		}
 		
 	}
 
+
+	@Override
+	public void onConnectionEstablished() {
+		isConnected=true;
+		client.sendMessage(Abbonement.SPEED);
+	}
+
+
+	@Override
+	public void onConnectionClosed() {
+		isConnected=false;
+	}
+
+
+	@Override
+	public void onError(Exception e) {
+		if (e.getMessage().equals("not connected")){
+			System.out.println("tried to connect.. try again in 1 second");
+		}
+	}
+
+
+
 }
+
+

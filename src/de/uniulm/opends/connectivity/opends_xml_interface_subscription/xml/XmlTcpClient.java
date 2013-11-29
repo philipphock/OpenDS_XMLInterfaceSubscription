@@ -18,7 +18,6 @@ public class XmlTcpClient extends Utf8StringTcpClient{
 			XmlMessageProtocolCallback callback) {
 		super(adress, port);
 		xmlMsgProtocol = new XmlMessageProtocol(callback);
-		startListening();
 	}
 
 
@@ -28,11 +27,7 @@ public class XmlTcpClient extends Utf8StringTcpClient{
 		System.out.println("connection lost");
 	}
 
-	@Override
-	protected void onError(Exception e) {
-		e.printStackTrace();
-		
-	}
+	
 
 	@Override
 	protected void recv(String s) {
@@ -41,6 +36,18 @@ public class XmlTcpClient extends Utf8StringTcpClient{
 
 	public void sendMessage(Abbonement xmlData){
 		sendUTF8String(xmlData.getXML());
+	}
+
+
+	@Override
+	protected void onConnectionEstablished() {
+		
+	}
+
+
+	@Override
+	protected void onError(Exception e) {
+		
 	}
 
 	

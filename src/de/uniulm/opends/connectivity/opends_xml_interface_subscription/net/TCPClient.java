@@ -2,10 +2,9 @@ package de.uniulm.opends.connectivity.opends_xml_interface_subscription.net;
 
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.ArrayList;
-
-import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.Abbonement;
 
 /**
  * TCP client with own receiver thread
@@ -56,21 +55,30 @@ public abstract class TCPClient implements Runnable{
 	 */
 	public void startListening(){
 		try {
+			
 			s = new Socket(ADRESS,PORT);
-			listent.start();
+			
+			if (s.isConnected()){
+				onConnectionEstablished();
+				for(TCPClientListener c:tcpClientListeners){
+					c.onConnectionEstablished();
+				}
+				listent.start();
+			}
+			
 		} catch (IOException e) {
-			e.printStackTrace();
+			for(TCPClientListener c:tcpClientListeners){
+				c.onError(new ConnectException("not connected"));
+			}
+			onError(e);
 		}
 	}
 	
 	@Override
 	public void run() {
-		
+
 		byte[] buffer = new byte[1024];
 		while(isRunning){
-			for(TCPClientListener c:tcpClientListeners){
-				c.onConnectionEstablished();
-			}
 			try {
 				int read=s.getInputStream().read(buffer);
 				if (read==-1){
@@ -82,7 +90,10 @@ public abstract class TCPClient implements Runnable{
 				}
 				recv(buffer, read);
 			} catch (IOException e) {
-				e.printStackTrace();
+				onError(e);
+				for(TCPClientListener c:tcpClientListeners){
+					c.onError(e);
+				}
 			}
 			
 		}
@@ -105,6 +116,9 @@ public abstract class TCPClient implements Runnable{
 			s.getOutputStream().flush();
 		} catch (IOException e) {
 			onError(e);
+			for(TCPClientListener c:tcpClientListeners){
+				c.onError(e);
+			}
 		}
 	}
 	
@@ -120,6 +134,8 @@ public abstract class TCPClient implements Runnable{
 		}
 	}
 	
+	protected abstract void onConnectionEstablished();
+	
 	/**
 	 * callback, called when the remote part closes the connection
 	 */
@@ -134,5 +150,6 @@ public abstract class TCPClient implements Runnable{
 	public interface TCPClientListener{
 		public void onConnectionEstablished();
 		public void onConnectionClosed();
+		public void onError(Exception e);
 	}
 }

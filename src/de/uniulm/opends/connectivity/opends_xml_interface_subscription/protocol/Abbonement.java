@@ -18,7 +18,7 @@ public enum Abbonement {
 	
 	//define enums and load data
 	SPEED(Abbonement.loadXMLtoString("speed.xml")),
-	RPM(Abbonement.loadXMLtoString("rmp.xml"));
+	RPM(Abbonement.loadXMLtoString("rpm.xml"));
 	
 	
 		

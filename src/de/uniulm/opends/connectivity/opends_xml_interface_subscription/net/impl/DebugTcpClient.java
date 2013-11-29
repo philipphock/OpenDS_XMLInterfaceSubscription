@@ -29,4 +29,9 @@ public class DebugTcpClient extends TCPClient{
 		System.out.println("Connection closed by foreign host");
 	}
 
+	@Override
+	protected void onConnectionEstablished() {
+		
+	}
+
 }
