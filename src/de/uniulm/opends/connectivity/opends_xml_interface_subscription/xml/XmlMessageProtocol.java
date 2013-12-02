@@ -58,8 +58,17 @@ public class XmlMessageProtocol {
 			String message0=sb.substring(0, delimiterIndex+DELIMITER.length());
 			String messageN=sb.substring(delimiterIndex+DELIMITER.length());
 			sb.setLength(0);
-			callback.onXmlMessage(toXml(message0));
-			pipeIn(messageN);
+			Document d=toXml(message0);
+			
+			if (d!=null){
+				callback.onXmlMessage(d);
+				pipeIn(messageN);
+			}else{
+				clean();
+			}
+			
+				
+			
 
 		}
 		
@@ -79,9 +88,17 @@ public class XmlMessageProtocol {
 	    try {
 			return builder.parse(is);
 		} catch (SAXException | IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println("xml conversion failed..");
 		}
 	    return null;
 		
+	}
+	
+	/**
+	 * cleans the protocl cache, forces the protocol to start over
+	 */
+	private void clean(){
+		sb.setLength(0);
 	}
 }

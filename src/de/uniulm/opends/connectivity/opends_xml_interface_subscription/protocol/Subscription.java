@@ -14,18 +14,19 @@ import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlTc
  * @author Fahrsimulator (Phil)
  *
  */
-public enum Abbonement {
+public enum Subscription {
 	
 	//define enums and load data
-	SPEED(Abbonement.loadXMLtoString("speed.xml"),"//root/thisVehicle/physicalAttributes/Properties/speed"),
-	RPM(Abbonement.loadXMLtoString("rpm.xml"),"//root/thisVehicle/exterior/engineCompartment/engine/Properties/actualRpm"),
-	ESTABLISH_CONNECTION(Abbonement.loadXMLtoString("establishConnection.xml"),null),
-	ABOLISH_CONNECTION(Abbonement.loadXMLtoString("abolishConnection.xml"),null);
+	SPEED(Subscription.loadXMLtoString("speed.xml"),"//root/thisVehicle/physicalAttributes/Properties/speed"),
+	RPM(Subscription.loadXMLtoString("rpm.xml"),"//root/thisVehicle/exterior/engineCompartment/engine/Properties/actualRpm"),
+	//XXX add more types here
+	ESTABLISH_CONNECTION(Subscription.loadXMLtoString("establishConnection.xml"),null),
+	ABOLISH_CONNECTION(Subscription.loadXMLtoString("abolishConnection.xml"),null);
 	
 		
 	private final String xml;
 	private final String xpath;
-	private Abbonement(String xml,String xPath) {
+	private Subscription(String xml,String xPath) {
 		this.xml=xml;
 		this.xpath=xPath;
 	}
@@ -63,5 +64,11 @@ public enum Abbonement {
 		 
 		
 		return "";
+	}
+	
+	@Override
+	public String toString() {
+
+		return name();
 	}
 }

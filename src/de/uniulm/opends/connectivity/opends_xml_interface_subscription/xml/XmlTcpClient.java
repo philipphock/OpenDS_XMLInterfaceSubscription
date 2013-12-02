@@ -1,7 +1,7 @@
 package de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml;
 
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.net.impl.Utf8StringTcpClient;
-import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.Abbonement;
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.Subscription;
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlMessageProtocol.XmlMessageProtocolCallback;
 
 /**
@@ -24,7 +24,7 @@ public class XmlTcpClient extends Utf8StringTcpClient {
 		xmlMsgProtocol.pipeIn(s);
 	}
 
-	public void sendMessage(Abbonement xmlData) {
+	public void sendMessage(Subscription xmlData) {
 		sendUTF8String(xmlData.getXML());
 	}
 
