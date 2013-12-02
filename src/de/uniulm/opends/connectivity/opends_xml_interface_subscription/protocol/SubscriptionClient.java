@@ -16,7 +16,7 @@ import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlTc
 
 public class SubscriptionClient extends XmlTcpClient implements XmlMessageProtocolCallback{
 
-	private ArrayList<AbbonementListener> listener;
+	private ArrayList<SubscriptionListener> listener;
 	private XPathExpression rpmXpath;
 	private XPathExpression speedXpath;
 
@@ -34,13 +34,13 @@ public class SubscriptionClient extends XmlTcpClient implements XmlMessageProtoc
 		}
 	}
 	
-	public void addAbbonementListener(AbbonementListener l){
+	public void addAbbonementListener(SubscriptionListener l){
 		if (!listener.contains(l)){
 			listener.add(l);
 		}
 	}
 	
-	public void removeAbbonementListener(AbbonementListener l){
+	public void removeAbbonementListener(SubscriptionListener l){
 		listener.remove(l);
 	}
 
@@ -51,7 +51,7 @@ public class SubscriptionClient extends XmlTcpClient implements XmlMessageProtoc
 
 		if (values == null) return;
 		for (OpenDSValue<?> v:values){
-			for(AbbonementListener l:listener){
+			for(SubscriptionListener l:listener){
 				l.eventReceived(v);
 			}	
 		}

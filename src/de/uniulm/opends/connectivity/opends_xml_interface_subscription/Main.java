@@ -3,7 +3,7 @@ package de.uniulm.opends.connectivity.opends_xml_interface_subscription;
 import java.util.Scanner;
 
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.net.TCPClient.TCPClientListener;
-import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.AbbonementListener;
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.SubscriptionListener;
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.OpenDSValue;
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.Subscription;
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.SubscriptionClient;
@@ -25,7 +25,7 @@ public class Main implements TCPClientListener{
 	
 	public void tryListen(){
 		client = new SubscriptionClient("127.0.0.1", 5578);
-		client.addAbbonementListener(new AbbonementListener() {
+		client.addAbbonementListener(new SubscriptionListener() {
 			
 			@Override
 			public void eventReceived(OpenDSValue<?> value) {
