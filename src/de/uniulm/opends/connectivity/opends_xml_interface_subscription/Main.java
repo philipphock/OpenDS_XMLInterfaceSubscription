@@ -7,6 +7,7 @@ import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.SubscriptionClient;
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.AbbonementListener;
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.OpenDSValue;
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.MessageBuilder;
 
 public class Main implements TCPClientListener{
 
@@ -14,7 +15,7 @@ public class Main implements TCPClientListener{
 	private SubscriptionClient client; 
 	public static void main(String[] args) {
 		
-
+		
 		Main m = new Main();
 		m.tryListen();	
 		
@@ -40,7 +41,8 @@ public class Main implements TCPClientListener{
 			public void run() {
 				Scanner ss = new Scanner(System.in);
 				ss.nextLine();
-				client.sendMessage(Subscription.ABOLISH_CONNECTION);
+				client.send(MessageBuilder.abolish(Subscription.SPEED,Subscription.RPM));
+				
 				
 			}
 		}).start();
@@ -70,14 +72,8 @@ public class Main implements TCPClientListener{
 	@Override
 	public void onConnectionEstablished() {
 		isConnected=true;
-		client.sendMessage(Subscription.ESTABLISH_CONNECTION);
-		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		client.sendMessage(Subscription.SPEED);
+		String es = MessageBuilder.establish(100,Subscription.SPEED,Subscription.RPM);
+		client.send(es);
 	}
 
 

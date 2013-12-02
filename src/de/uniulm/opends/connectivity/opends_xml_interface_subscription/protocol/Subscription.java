@@ -17,28 +17,18 @@ import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.XmlTc
 public enum Subscription {
 	
 	//define enums and load data
-	SPEED(Subscription.loadXMLtoString("speed.xml"),"//root/thisVehicle/physicalAttributes/Properties/speed"),
-	RPM(Subscription.loadXMLtoString("rpm.xml"),"//root/thisVehicle/exterior/engineCompartment/engine/Properties/actualRpm"),
+	SPEED("/root/thisVehicle/physicalAttributes/Properties/speed"),
+	RPM("/root/thisVehicle/exterior/engineCompartment/engine/Properties/actualRpm");
 	//XXX add more types here
-	ESTABLISH_CONNECTION(Subscription.loadXMLtoString("establishConnection.xml"),null),
-	ABOLISH_CONNECTION(Subscription.loadXMLtoString("abolishConnection.xml"),null);
 	
 		
-	private final String xml;
+	
 	private final String xpath;
-	private Subscription(String xml,String xPath) {
-		this.xml=xml;
+	private Subscription(String xPath) {
 		this.xpath=xPath;
 	}
 	
-	/**
-	 * 
-	 * @return xml as UTF-8 String
-	 */
-	public String getXML() {
-		return xml;
 
-	}
 	
 	/**
 	 * 

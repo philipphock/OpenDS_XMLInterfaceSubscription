@@ -27,8 +27,8 @@ public class SubscriptionClient extends XmlTcpClient implements XmlMessageProtoc
 		try {
 			XPathFactory xPathfactory = XPathFactory.newInstance();
 			XPath xpath = xPathfactory.newXPath();
-			rpmXpath = xpath.compile(Subscription.RPM.getXPath());
-			speedXpath = xpath.compile(Subscription.SPEED.getXPath());
+			rpmXpath = xpath.compile("/"+Subscription.RPM.getXPath());
+			speedXpath = xpath.compile("/"+Subscription.SPEED.getXPath());
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
 		}
@@ -107,6 +107,9 @@ public class SubscriptionClient extends XmlTcpClient implements XmlMessageProtoc
 	}
 
 
-	
+
+	public void send(String message){
+		sendUTF8String(message);
+	}
 	
 }
