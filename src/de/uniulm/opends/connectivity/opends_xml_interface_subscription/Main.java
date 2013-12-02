@@ -3,10 +3,10 @@ package de.uniulm.opends.connectivity.opends_xml_interface_subscription;
 import java.util.Scanner;
 
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.net.TCPClient.TCPClientListener;
-import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.Subscription;
-import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.SubscriptionClient;
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.AbbonementListener;
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.OpenDSValue;
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.Subscription;
+import de.uniulm.opends.connectivity.opends_xml_interface_subscription.protocol.SubscriptionClient;
 import de.uniulm.opends.connectivity.opends_xml_interface_subscription.xml.MessageBuilder;
 
 public class Main implements TCPClientListener{
@@ -39,10 +39,11 @@ public class Main implements TCPClientListener{
 			
 			@Override
 			public void run() {
+				@SuppressWarnings("resource")
 				Scanner ss = new Scanner(System.in);
 				ss.nextLine();
 				client.send(MessageBuilder.abolish(Subscription.SPEED,Subscription.RPM));
-				
+				ss.nextLine();
 				
 			}
 		}).start();
